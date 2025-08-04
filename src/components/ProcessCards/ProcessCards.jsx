@@ -11,31 +11,38 @@ const ProcessCards = () => {
   const processCardsData = [
     {
       index: "01",
-      title: "Principles",
-      image: "/images/process/process_001.jpeg",
+      title: "Joao",
+      image: "/images/process/process_005.jpeg",
       description:
-        "We design with restraint and intention. Every decision is shaped by a set of values—clarity, structure, and calm execution.",
+        "El master de las políticas de anuncios. Joao domina el arte de la optimización publicitaria, creando estrategias que maximizan el ROI y convierten cada clic en ventas reales.",
     },
     {
       index: "02",
-      title: "Approach",
-      image: "/images/process/process_002.jpeg",
+      title: "Alec",
+      image: "/images/process/process_001.jpeg",
       description:
-        "Our process is iterative and deliberate. We prioritize simplicity over excess, and build systems that scale with clarity.",
+        "La navaja suiza del equipo. Alec combina creatividad estratégica con ejecución técnica, adaptándose a cualquier desafío para entregar resultados excepcionales.",
     },
     {
       index: "03",
-      title: "Practice",
-      image: "/images/process/process_003.jpeg",
+      title: "Cristina",
+      image: "/images/process/process_002.jpeg",
       description:
-        "We work at the intersection of design and code. Every detail is shaped by consistency, rhythm, and quiet precision.",
+        "Estratega de lanzamiento experta. Cristina diseña y ejecuta lanzamientos que generan expectativa, convierten audiencias y maximizan las ventas desde el primer día.",
     },
     {
       index: "04",
-      title: "Vision",
+      title: "Luara",
+      image: "/images/process/process_003.jpeg",
+      description:
+        "Mente creativa y experiencia de usuario. Luara crea experiencias digitales que enamoran a los usuarios y convierten visitantes en clientes fieles.",
+    },
+    {
+      index: "05",
+      title: "Fátima",
       image: "/images/process/process_004.jpeg",
       description:
-        "We believe the web should feel honest and effortless. Our aim is to create digital experiences that stand the test of time.",
+        "La samurai del copy. Fátima escribe textos que venden, persuaden y convierten, transformando ideas complejas en mensajes que generan acción inmediata.",
     },
   ];
 
@@ -94,7 +101,7 @@ const ProcessCards = () => {
 
               <div className="process-card-copy">
                 <div className="process-card-copy-title">
-                  <p className="caps">(About the state)</p>
+                  <p className="caps">(Su especialidad)</p>
                 </div>
                 <div className="process-card-copy-description">
                   <p>{cardData.description}</p>

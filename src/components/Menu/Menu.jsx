@@ -11,24 +11,16 @@ gsap.registerPlugin(CustomEase);
 CustomEase.create("hop", ".15, 1, .25, 1");
 
 const Menu = ({ onMenuStateChange }) => {
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [currentPath, setCurrentPath] = useState("/");
+  const [currentPath, setCurrentPath] = useState("");
   const [currentTime, setCurrentTime] = useState("");
+  const [isClient, setIsClient] = useState(false);
   const router = useTransitionRouter();
 
-  const menuRef = useRef(null);
   const navRef = useRef(null);
-  const menuOverlayRef = useRef(null);
-
   const navLogoRef = useRef(null);
-  const menuBtnRef = useRef(null);
-
-  const closeBtnRef = useRef(null);
-
-  const menuItemsRef = useRef(null);
-  const menuFooterColsRef = useRef(null);
 
   useEffect(() => {
+    setIsClient(true);
     if (typeof window !== "undefined") {
       setCurrentPath(window.location.pathname);
     }
@@ -72,28 +64,6 @@ const Menu = ({ onMenuStateChange }) => {
       router.events?.off?.("routeChangeComplete", handleRouteChange);
     };
   }, [router]);
-
-  useGSAP(
-    () => {
-      gsap.set(menuOverlayRef.current, {
-        opacity: 0,
-        pointerEvents: "none",
-      });
-
-      gsap.set(closeBtnRef.current, {
-        y: "100%",
-      });
-
-      gsap.set(".menu-overlay-items .revealer a", {
-        y: "100%",
-      });
-
-      gsap.set(".menu-footer .revealer p, .menu-footer .revealer a", {
-        y: "100%",
-      });
-    },
-    { scope: menuRef }
-  );
 
   function slideInOut() {
     document.documentElement.animate(
@@ -141,226 +111,26 @@ const Menu = ({ onMenuStateChange }) => {
   };
 
   const isExactPath = (path) => {
+    if (!isClient) return false;
     const exactCurrentPath = getExactPath();
     return exactCurrentPath === path;
   };
 
   const navigateTo = (path) => {
-    if (isAnimating) return;
-
     if (isExactPath(path)) {
-      closeMenu();
       return;
     }
 
-    closeMenu();
-
-    setTimeout(() => {
-      router.push(path, {
-        onTransitionReady: slideInOut,
-      });
-    }, 0);
-  };
-
-  const openMenu = () => {
-    if (isAnimating) return;
-
-    onMenuStateChange?.(true);
-
-    setIsAnimating(true);
-    const tl = gsap.timeline({
-      onComplete: () => setIsAnimating(false),
+    router.push(path, {
+      onTransitionReady: slideInOut,
     });
-
-    tl.to(menuBtnRef.current, {
-      y: "-100%",
-      duration: 0.5,
-      ease: "power3.out",
-      onComplete: () => {
-        navRef.current.style.pointerEvents = "none";
-        gsap.set(menuBtnRef.current, { y: "100%" });
-      },
-    });
-
-    tl.to(
-      menuOverlayRef.current,
-      {
-        opacity: 1,
-        duration: 0.5,
-        ease: "power3.out",
-        onStart: () => {
-          menuOverlayRef.current.style.pointerEvents = "all";
-        },
-      },
-      "-=0.45"
-    );
-
-    tl.to(
-      closeBtnRef.current,
-      {
-        y: "0%",
-        duration: 1,
-        ease: "power3.out",
-      },
-      "-=0.5"
-    );
-
-    tl.to(
-      ".menu-overlay-items .revealer a",
-      {
-        y: "0%",
-        duration: 1,
-        stagger: 0.075,
-        ease: "power3.out",
-      },
-      "<"
-    );
-
-    tl.to(
-      ".menu-footer .revealer p, .menu-footer .revealer a",
-      {
-        y: "0%",
-        duration: 1,
-        stagger: 0.1,
-        ease: "power3.out",
-        delay: 0.5,
-      },
-      "<"
-    );
-  };
-
-  const closeMenu = () => {
-    if (isAnimating) return;
-
-    onMenuStateChange?.(false);
-
-    setIsAnimating(true);
-    const tl = gsap.timeline({
-      onComplete: () => setIsAnimating(false),
-    });
-
-    tl.to(closeBtnRef.current, {
-      y: "-100%",
-      duration: 0.5,
-      ease: "power3.out",
-    });
-
-    tl.to(
-      ".menu-overlay-items .revealer a",
-      {
-        y: "-100%",
-        duration: 0.5,
-        stagger: 0.05,
-        ease: "power3.in",
-      },
-      "<"
-    );
-
-    tl.to(
-      ".menu-footer .revealer p, .menu-footer .revealer a",
-      {
-        y: "-100%",
-        duration: 0.5,
-        stagger: 0.05,
-        ease: "power3.in",
-      },
-      "<"
-    );
-
-    tl.to(
-      menuOverlayRef.current,
-      {
-        opacity: 0,
-        duration: 0.5,
-        ease: "power3.out",
-        onComplete: () => {
-          menuOverlayRef.current.style.pointerEvents = "none";
-
-          gsap.set(closeBtnRef.current, {
-            y: "100%",
-          });
-
-          gsap.set(".menu-overlay-items .revealer a", {
-            y: "100%",
-          });
-
-          gsap.set(".menu-footer .revealer p, .menu-footer .revealer a", {
-            y: "100%",
-          });
-        },
-      },
-      "+=0.1"
-    );
-
-    tl.to(
-      menuBtnRef.current,
-      {
-        y: "0%",
-        duration: 0.5,
-        ease: "power3.out",
-        onStart: () => {
-          navRef.current.style.pointerEvents = "all";
-        },
-      },
-      "-=0.45"
-    );
   };
 
   return (
-    <>
-      <div className="nav-container">
-        <div className="nav" ref={navRef}>
-          <div className="nav-logo">
-            <div className="revealer">
-              <a
-                href="/"
-                ref={navLogoRef}
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (isExactPath("/")) return;
-
-                  router.push("/", {
-                    onTransitionReady: slideInOut,
-                  });
-                }}
-              >
-                <img
-                  className="logo-img"
-                  src="/images/logos/logo_light.png"
-                  alt=""
-                />
-              </a>
-            </div>
-          </div>
-          <div className="nav-items">
-            <div className="nav-menu-time">
-              <div className="revealer">
-                <p className="sm caps mono">{currentTime}</p>
-              </div>
-            </div>
-
-            <div className="nav-menu-toggle-open">
-              <div className="revealer" onClick={openMenu}>
-                <p className="sm caps mono" ref={menuBtnRef}>
-                  Menu
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="menu" ref={menuRef}>
-        <div className="menu-overlay" ref={menuOverlayRef}>
-          <div className="menu-overlay-nav">
-            <div className="menu-overlay-nav-toggle-close">
-              <div className="revealer" onClick={closeMenu}>
-                <p className="sm caps mono" ref={closeBtnRef}>
-                  Close
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="menu-overlay-items" ref={menuItemsRef}>
+    <div className="nav-container">
+      <div className="nav" ref={navRef}>
+        <div className="nav-header-col-lg">
+          <div className="nav-menu-item">
             <div className="revealer">
               <a
                 href="/"
@@ -368,21 +138,27 @@ const Menu = ({ onMenuStateChange }) => {
                   e.preventDefault();
                   navigateTo("/");
                 }}
+                className={isExactPath("/") ? "active" : ""}
               >
-                <h1>index,</h1>
+                <span className="sm caps mono">Inicio</span>
               </a>
             </div>
+          </div>
+          <div className="nav-menu-item">
             <div className="revealer">
               <a
-                href="/work"
+                href="/casos-de-exito"
                 onClick={(e) => {
                   e.preventDefault();
-                  navigateTo("/work");
+                  navigateTo("/casos-de-exito");
                 }}
+                className={isExactPath("/casos-de-exito") ? "active" : ""}
               >
-                <h1>work,</h1>
+                <span className="sm caps mono">Casos de éxito</span>
               </a>
             </div>
+          </div>
+          <div className="nav-menu-item">
             <div className="revealer">
               <a
                 href="/studio"
@@ -390,21 +166,27 @@ const Menu = ({ onMenuStateChange }) => {
                   e.preventDefault();
                   navigateTo("/studio");
                 }}
+                className={isExactPath("/studio") ? "active" : ""}
               >
-                <h1>studio,</h1>
+                <span className="sm caps mono">Quienes somos</span>
               </a>
             </div>
+          </div>
+          <div className="nav-menu-item">
             <div className="revealer">
               <a
-                href="/archive"
+                href="/servicios"
                 onClick={(e) => {
                   e.preventDefault();
-                  navigateTo("/archive");
+                  navigateTo("/servicios");
                 }}
+                className={isExactPath("/servicios") ? "active" : ""}
               >
-                <h1>archive,</h1>
+                <span className="sm caps mono">Servicios</span>
               </a>
             </div>
+          </div>
+          <div className="nav-menu-item">
             <div className="revealer">
               <a
                 href="/contact"
@@ -412,46 +194,139 @@ const Menu = ({ onMenuStateChange }) => {
                   e.preventDefault();
                   navigateTo("/contact");
                 }}
+                className={isExactPath("/contact") ? "active" : ""}
               >
-                <h1>contact</h1>
+                <span className="sm caps mono">CONTACTO</span>
               </a>
             </div>
           </div>
-          <div className="menu-footer" ref={menuFooterColsRef}>
-            <div className="menu-footer-col">
+        </div>
+
+        <div className="nav-logo-mobile">
+          <div className="revealer">
+            <a
+              href="https://app.rollout-studios.com/auth"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="client-btn"
+            >
+              <span className="sm caps mono">ACCESO CLIENTES</span>
+              <svg className="arrow-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2.5 9.5L9.5 2.5M9.5 2.5H3M9.5 2.5V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div className="nav-header-col-sm">
+          <div className="nav-menu-time">
+            <div className="revealer">
+              <p className="sm caps mono">{currentTime}</p>
+            </div>
+          </div>
+
+          <div className="nav-logo">
+            <div className="revealer">
+              <a
+                href="https://app.rollout-studios.com/auth"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="client-btn"
+              >
+                <span className="sm caps mono">ACCESO CLIENTES</span>
+                <svg className="arrow-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2.5 9.5L9.5 2.5M9.5 2.5H3M9.5 2.5V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div className="nav-menu-mobile">
+            <div className="nav-menu-item">
               <div className="revealer">
-                <p className="sm caps mono">&copy; 2025 All Rights Reserved</p>
+                <a
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo("/");
+                  }}
+                  className={isExactPath("/") ? "active" : ""}
+                >
+                  <span className="sm caps mono">Inicio</span>
+                </a>
               </div>
             </div>
-            <div className="menu-footer-col">
-              <div className="socials">
-                <div className="revealer">
-                  <a
-                    className="sm caps mono"
-                    href="https://www.youtube.com/@codegrid"
-                  >
-                    YouTube
-                  </a>
-                </div>
-                <div className="revealer">
-                  <a
-                    className="sm caps mono"
-                    href="https://www.instagram.com/codegridweb/"
-                  >
-                    Instagram
-                  </a>
-                </div>
-                <div className="revealer">
-                  <a className="sm caps mono" href="https://x.com/codegridweb">
-                    X
-                  </a>
-                </div>
+            <div className="nav-menu-item">
+              <div className="revealer">
+                <a
+                  href="/casos-de-exito"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo("/casos-de-exito");
+                  }}
+                  className={isExactPath("/casos-de-exito") ? "active" : ""}
+                >
+                  <span className="sm caps mono">Casos</span>
+                </a>
+              </div>
+            </div>
+            <div className="nav-menu-item">
+              <div className="revealer">
+                <a
+                  href="/studio"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo("/studio");
+                  }}
+                  className={isExactPath("/studio") ? "active" : ""}
+                >
+                  <span className="sm caps mono">Studio</span>
+                </a>
+              </div>
+            </div>
+            <div className="nav-menu-item">
+              <div className="revealer">
+                <a
+                  href="/servicios"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo("/servicios");
+                  }}
+                  className={isExactPath("/servicios") ? "active" : ""}
+                >
+                  <span className="sm caps mono">Servicios</span>
+                </a>
+              </div>
+            </div>
+            <div className="nav-menu-item">
+              <div className="revealer">
+                <a
+                  href="/contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo("/contact");
+                  }}
+                  className={isExactPath("/contact") ? "active" : ""}
+                >
+                  <span className="sm caps mono">Contacto</span>
+                </a>
+              </div>
+            </div>
+            <div className="nav-menu-item">
+              <div className="revealer">
+                <a
+                  href="https://app.rollout-studios.com/auth"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="sm caps mono">Para clientes</span>
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -10,14 +10,16 @@
   position: relative;
   width: 100vw;
   padding: 1.5rem;
+  padding-top: 6rem;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   overflow-x: hidden;
 }
 
 .studio-hero h1 {
-  font-size: 50vw;
+  font-size: 19vw;
+  line-height: 0.8;
   position: relative;
 }
 
@@ -25,7 +27,7 @@
   aspect-ratio: 7/5;
   position: relative;
   width: calc(100vw - 3rem);
-  margin: 0 auto -25% auto;
+  margin: 25rem auto -25% auto
 }
 
 .studio-hero-img-wrapper {
@@ -100,6 +102,11 @@
 
 .recognition-copy p {
   color: var(--foreground-200);
+}
+
+.studio-header-copy .sm.caps,
+.recognition-copy .sm.caps {
+  color: #B8FF53;
 }
 
 .char {

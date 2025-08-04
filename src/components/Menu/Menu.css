@@ -37,6 +37,7 @@
   padding: 1.5rem;
   display: flex;
   gap: 1.5rem;
+  align-items: center;
 }
 
 .nav a,
@@ -50,28 +51,88 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.nav-logo {
-  flex: 2;
-}
-
-.nav-items {
-  flex: 1;
+.nav-header-col-lg {
+  flex: 4;
   display: flex;
+  gap: 0.3rem;
+  justify-content: flex-start;
 }
 
-.nav-menu-toggle-open,
-.nav-menu-time {
-  flex: 1;
+.nav-menu-item {
+  flex: 0 0 auto;
 }
 
-.nav-menu-toggle-open {
-  display: flex;
-  justify-content: flex-end;
-  height: max-content;
-}
-
-.nav-menu-toggle-open .revealer {
+.nav-menu-item a {
+  padding: 0.35rem 0.7rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
   cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.nav-menu-item a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-menu-item a.active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.nav-header-col-sm {
+  flex: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-menu-time {
+  flex: 0 0 auto;
+}
+
+.nav-menu-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: flex-end;
+}
+
+.nav-logo {
+  flex: 0 0 auto;
+}
+
+.nav-logo-mobile {
+  display: none;
+  flex: 0 0 auto;
+}
+
+.client-btn {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: var(--foreground);
+}
+
+.client-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+.client-btn:hover .arrow-icon {
+  transform: none;
 }
 
 img.logo-img {
@@ -163,8 +224,56 @@ img.logo-img {
 }
 
 @media (max-width: 1000px) {
-  .nav-menu-time {
+  .nav {
+    flex-direction: row;
+    gap: 1rem;
+    padding: 1rem;
+    align-items: flex-start;
+  }
+
+  .nav-header-col-lg {
     display: none;
+  }
+
+  .nav-logo {
+    display: none;
+  }
+
+  .nav-logo-mobile {
+    display: block;
+  }
+
+  .nav-header-col-sm {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  .nav-menu-time {
+    order: 1;
+  }
+
+  .nav-menu-mobile {
+    display: flex;
+    order: 2;
+  }
+
+  .nav-menu-mobile .nav-menu-item a {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0.4rem;
+    transition: all 0.3s ease;
+  }
+
+  .nav-menu-mobile .nav-menu-item a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .nav-menu-mobile .nav-menu-item a.active {
+    background-color: rgba(255, 255, 255, 0.3);
   }
 
   .menu-overlay-items {
@@ -176,5 +285,83 @@ img.logo-img {
     flex-direction: column;
     align-items: flex-end;
     gap: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 0.8rem;
+    gap: 0.8rem;
+  }
+
+  .nav-header-col-sm {
+    gap: 0.4rem;
+  }
+
+  .nav-menu-mobile {
+    gap: 0.2rem;
+  }
+
+  .nav-menu-mobile .nav-menu-item a {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.7rem;
+  }
+
+  .nav-menu-time {
+    font-size: 0.6rem;
+  }
+
+  .client-btn {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    gap: 0.4rem;
+  }
+
+  .arrow-icon {
+    width: 10px;
+    height: 10px;
+  }
+
+  img.logo-img {
+    width: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav {
+    padding: 0.6rem;
+    gap: 0.6rem;
+  }
+
+  .nav-header-col-sm {
+    gap: 0.3rem;
+  }
+
+  .nav-menu-mobile {
+    gap: 0.15rem;
+  }
+
+  .nav-menu-mobile .nav-menu-item a {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.65rem;
+  }
+
+  .nav-menu-time {
+    font-size: 0.55rem;
+  }
+
+  .client-btn {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.5rem;
+    gap: 0.3rem;
+  }
+
+  .arrow-icon {
+    width: 8px;
+    height: 8px;
+  }
+
+  img.logo-img {
+    width: 1.2rem;
   }
 }

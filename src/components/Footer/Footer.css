@@ -46,6 +46,37 @@
   display: inline-block;
 }
 
+/* Estilos para los enlaces del footer */
+.footer-main-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: var(--foreground-200);
+  text-decoration: none;
+  font-family: "nm";
+  font-size: clamp(0.8rem, 0.2rem + 0.7vw, 1.5rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.footer-link:hover {
+  color: var(--foreground);
+}
+
 @media (max-width: 1000px) {
   .fs-col-lg {
     display: none;
@@ -59,5 +90,17 @@
 
   .fs-col-sm {
     justify-content: flex-start;
+  }
+
+  .footer-main-content {
+    gap: 0.5rem;
+  }
+  
+  .footer-links {
+    gap: 1rem;
+  }
+  
+  .footer-link {
+    font-size: clamp(0.75rem, 0.2rem + 0.6vw, 1.3rem);
   }
 }

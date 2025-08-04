@@ -3,8 +3,8 @@ import "./work.css";
 import { portfolio } from "./portfolio";
 import { useRef } from "react";
 
-import Copy from "@/components/Copy/Copy";
-import Footer from "@/components/Footer/Footer";
+import Copy from "../../components/Copy/Copy";
+import Footer from "../../components/Footer/Footer";
 
 import { useTransitionRouter } from "next-view-transitions";
 import gsap from "gsap";

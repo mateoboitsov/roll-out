@@ -2,8 +2,8 @@
 import "./sample-project.css";
 import { useRef } from "react";
 
-import Copy from "@/components/Copy/Copy";
-import BtnLink from "@/components/BtnLink/BtnLink";
+import Copy from "../../components/Copy/Copy";
+import BtnLink from "../../components/BtnLink/BtnLink";
 
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";

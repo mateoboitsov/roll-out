@@ -107,7 +107,7 @@ const WhoWeAre = () => {
       <div className="whoweare-container">
         <div className="whoweare-scroll">
           <div className="whoweare-header">
-            <h1>Who we are</h1>
+            <h1>Que hacemos</h1>
           </div>
 
           <div className="whoweare-img" id="whoweare-img-1">

@@ -36,6 +36,133 @@
   left: 20%;
 }
 
+/* Estilos del formulario */
+.contact-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding-right: 3rem;
+}
+
+.form-title {
+  font-size: clamp(0.8rem, 0.2rem + 0.7vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--foreground);
+  text-transform: uppercase;
+  font-family: "DM Mono";
+}
+
+.contact-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--foreground-200);
+  color: var(--foreground);
+  font-family: "nm";
+  font-size: clamp(0.8rem, 0.2rem + 0.7vw, 1.5rem);
+  font-weight: 500;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+  outline: none;
+  resize: none;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--foreground-200);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  font-family: "DM Mono";
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-bottom-color: var(--foreground);
+}
+
+.form-input:focus::placeholder,
+.form-textarea:focus::placeholder {
+  color: var(--foreground);
+  opacity: 0.7;
+}
+
+.form-textarea {
+  min-height: 60px;
+  line-height: 1.4;
+}
+
+.form-submit {
+  background: transparent;
+  border: 1px solid var(--foreground);
+  color: var(--foreground);
+  font-family: "nm";
+  font-size: clamp(0.8rem, 0.2rem + 0.7vw, 1.5rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.form-submit:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.form-submit:active {
+  transform: scale(0.98);
+}
+
+/* Estilos de los botones de contacto */
+.contact-buttons {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  width: 100%;
+}
+
+.contact-btn {
+  flex: 1;
+  padding: 0.35rem 0.7rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--foreground);
+  font-family: "DM Mono";
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+}
+
+.contact-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.contact-btn:active {
+  transform: scale(0.98);
+}
+
 .contact-footer {
   position: absolute;
   left: 0;
@@ -75,8 +202,157 @@
     padding: 1.5rem;
   }
 
+  .contact-form-section {
+    padding-right: 0;
+  }
+
   .contact-footer {
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .form-submit {
+    align-self: stretch;
+    text-align: center;
+  }
+
+  .contact-buttons {
+    justify-content: center;
+  }
+
+  .contact-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Estilos para el checkbox de política de privacidad */
+.checkbox-group {
+  margin-top: 1rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-family: "nm";
+  font-size: clamp(0.7rem, 0.2rem + 0.6vw, 1.2rem);
+  font-weight: 500;
+  color: var(--foreground);
+  line-height: 1.4;
+}
+
+.form-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 1px solid var(--foreground-200);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  transition: all 0.3s ease;
+}
+
+.form-checkbox:checked {
+  background: var(--foreground);
+  border-color: var(--foreground);
+}
+
+.form-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--background);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.form-checkbox:focus {
+  outline: none;
+  border-color: var(--foreground);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.checkbox-text {
+  color: var(--foreground);
+  font-size: clamp(0.7rem, 0.2rem + 0.6vw, 1.2rem);
+  line-height: 1.4;
+}
+
+.checkbox-text a {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-decoration-color: var(--foreground-200);
+  transition: text-decoration-color 0.3s ease;
+}
+
+.checkbox-text a:hover {
+  text-decoration-color: var(--foreground);
+}
+
+@media (max-width: 1000px) {
+  .checkbox-label {
+    font-size: clamp(0.65rem, 0.2rem + 0.5vw, 1rem);
+  }
+  
+  .form-checkbox {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+  
+  .checkbox-text {
+    font-size: clamp(0.65rem, 0.2rem + 0.5vw, 1rem);
+  }
+}
+
+/* Estilos para los enlaces del footer */
+.footer-main-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: var(--foreground-200);
+  text-decoration: none;
+  font-family: "nm";
+  font-size: clamp(0.8rem, 0.2rem + 0.7vw, 1.5rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.footer-link:hover {
+  color: var(--foreground);
+}
+
+@media (max-width: 1000px) {
+  .footer-main-content {
+    gap: 0.5rem;
+  }
+  
+  .footer-links {
+    gap: 1rem;
+  }
+  
+  .footer-link {
+    font-size: clamp(0.75rem, 0.2rem + 0.6vw, 1.3rem);
   }
 }

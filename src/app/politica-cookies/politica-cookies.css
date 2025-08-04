@@ -1,0 +1,136 @@
+.politica-cookies {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.pc-hero {
+  width: 100vw;
+  height: 40svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.pc-content {
+  width: 100%;
+  padding: 1.5rem;
+  margin-top: -5rem;
+}
+
+.pc-content-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.pc-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pc-section h3 {
+  color: var(--foreground);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.pc-section p {
+  color: var(--foreground-200);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.pc-section strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.pc-section ul {
+  color: var(--foreground-200);
+  line-height: 1.6;
+  font-size: 1rem;
+  padding-left: 1.5rem;
+}
+
+.pc-section li {
+  margin-bottom: 0.5rem;
+}
+
+.cookies-table {
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.cookies-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--background);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cookies-table th {
+  background-color: var(--foreground);
+  color: var(--background);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cookies-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--foreground-100);
+  color: var(--foreground-200);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.cookies-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cookies-table tr:hover {
+  background-color: var(--foreground-50);
+}
+
+@media (max-width: 1000px) {
+  .pc-hero {
+    height: 30svh;
+  }
+  
+  .pc-content {
+    margin-top: -3rem;
+  }
+  
+  .pc-content-wrapper {
+    gap: 3rem;
+  }
+  
+  .pc-section {
+    gap: 1rem;
+  }
+  
+  .pc-section h3 {
+    font-size: 1.25rem;
+  }
+  
+  .cookies-table {
+    font-size: 0.8rem;
+  }
+  
+  .cookies-table th,
+  .cookies-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+} 

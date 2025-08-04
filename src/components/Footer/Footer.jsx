@@ -5,11 +5,58 @@ import { useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useTransitionRouter } from "next-view-transitions";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
   const footerRef = useRef(null);
+  const router = useTransitionRouter();
+
+  function slideInOut() {
+    document.documentElement.animate(
+      [
+        {
+          opacity: 1,
+          transform: "translateY(0) scale(1)",
+        },
+        {
+          opacity: 0.2,
+          transform: "translateY(-30%) scale(0.90)",
+        },
+      ],
+      {
+        duration: 1500,
+        easing: "cubic-bezier(0.87, 0, 0.13, 1)",
+        fill: "forwards",
+        pseudoElement: "::view-transition-old(root)",
+      }
+    );
+
+    document.documentElement.animate(
+      [
+        {
+          clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+        },
+        {
+          clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+        },
+      ],
+      {
+        duration: 1500,
+        easing: "cubic-bezier(0.87, 0, 0.13, 1)",
+        fill: "forwards",
+        pseudoElement: "::view-transition-new(root)",
+      }
+    );
+  }
+
+  const handleNavigation = (e, route) => {
+    e.preventDefault();
+    router.push(route, {
+      onTransitionReady: slideInOut,
+    });
+  };
 
   useGSAP(
     () => {
@@ -54,7 +101,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="footer-social">
-            <a href="mailto:contact@codegrid.com">
+            <a href="mailto:Cristina@rollout-studios.com">
               <div className="footer-text">
                 <div className="footer-text-content">
                   <h2>Email</h2>
@@ -63,7 +110,16 @@ const Footer = () => {
             </a>
           </div>
           <div className="footer-social">
-            <a href="https://www.youtube.com/@codegrid">
+            <a href="https://wa.me/351927697179?text=Hola%2C%20me%20gustar%C3%ADa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios." target="_blank" rel="noopener noreferrer">
+              <div className="footer-text">
+                <div className="footer-text-content">
+                  <h2>WhatsApp</h2>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div className="footer-social">
+            <a href="https://www.linkedin.com/company/rollout-studios/" target="_blank" rel="noopener noreferrer">
               <div className="footer-text">
                 <div className="footer-text-content">
                   <h2>LinkedIn</h2>
@@ -72,28 +128,10 @@ const Footer = () => {
             </a>
           </div>
           <div className="footer-social">
-            <a href="https://www.youtube.com/@codegrid">
-              <div className="footer-text">
-                <div className="footer-text-content">
-                  <h2>Behance</h2>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div className="footer-social">
-            <a href="https://www.youtube.com/@codegrid">
+            <a href="https://www.instagram.com/rollout.studios/" target="_blank" rel="noopener noreferrer">
               <div className="footer-text">
                 <div className="footer-text-content">
                   <h2>Instagram</h2>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div className="footer-social">
-            <a href="https://vimeo.com/codegrid">
-              <div className="footer-text">
-                <div className="footer-text-content">
-                  <h2>Vimeo</h2>
                 </div>
               </div>
             </a>
@@ -105,7 +143,13 @@ const Footer = () => {
         <div className="fc-col-lg">
           <div className="footer-text">
             <div className="footer-text-content">
-              <p className="sm caps">Developed by Codegrid</p>
+              <div className="footer-main-content">
+                <div className="footer-links">
+                  <a href="/aviso-legal" className="footer-link" onClick={(e) => handleNavigation(e, "/aviso-legal")}>Aviso Legal</a>
+                  <a href="/politica-privacidad" className="footer-link" onClick={(e) => handleNavigation(e, "/politica-privacidad")}>Política de Privacidad</a>
+                  <a href="/politica-cookies" className="footer-link" onClick={(e) => handleNavigation(e, "/politica-cookies")}>Política de Cookies</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

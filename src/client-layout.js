@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-import Menu from "@/components/Menu/Menu";
+import Menu from "./components/Menu/Menu";
 
 import { ReactLenis } from "lenis/react";
 

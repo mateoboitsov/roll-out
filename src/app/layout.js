@@ -1,12 +1,12 @@
 import "./globals.css";
 
-import ClientLayout from "@/client-layout";
+import ClientLayout from "../client-layout";
 
 import { ViewTransitions } from "next-view-transitions";
 
 export const metadata = {
-  title: "WuWei Studio — Codegrid",
-  description: "Creative Studio MWT Website Template — Codegrid",
+  title: "Roll Out Studios — MAIBO",
+  description: "Creative Studio Website — MAIBO",
 };
 
 export default function RootLayout({ children }) {

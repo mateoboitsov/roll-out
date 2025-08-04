@@ -2,11 +2,11 @@
 import "./studio.css";
 import { useRef } from "react";
 
-import Copy from "@/components/Copy/Copy";
-import BtnLink from "@/components/BtnLink/BtnLink";
-import WhoWeAre from "@/components/WhoWeAre/WhoWeAre";
-import ProcessCards from "@/components/ProcessCards/ProcessCards";
-import Footer from "@/components/Footer/Footer";
+import Copy from "../../components/Copy/Copy";
+import BtnLink from "../../components/BtnLink/BtnLink";
+import WhoWeAre from "../../components/WhoWeAre/WhoWeAre";
+import ProcessCards from "../../components/ProcessCards/ProcessCards";
+import Footer from "../../components/Footer/Footer";
 
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
@@ -90,7 +90,7 @@ const page = () => {
     <>
       <div className="studio" ref={studioRef}>
         <section className="studio-hero">
-          <h1 className="caps">Wu</h1>
+          <h1 className="caps">Roll Out</h1>
         </section>
 
         <section className="studio-hero-img">
@@ -102,11 +102,10 @@ const page = () => {
         <section className="studio-header">
           <div className="studio-header-copy">
             <Copy>
+              <p className="sm caps">Quienes somos</p>
+              <br />
               <h2>
-                At Wu Wei Studio, we approach every project with quiet focus.
-                Through close collaboration and considered process, we build
-                digital work that reflects both the needs of our clients and the
-                values of our practice.
+                Hemos hecho campañas exitosas generando 50M en ventas reales, gestionando más de 10M de inversión publicitaria. Tenemos el conocimiento y la experiencia para escalar tus ventas.
               </h2>
             </Copy>
           </div>
@@ -120,22 +119,21 @@ const page = () => {
             <div className="mission-intro-copy">
               <Copy>
                 <h3>
-                  We are a digital studio dedicated to creating clear and
-                  purposeful online experiences. Our work is rooted in
-                  structure, guided by systems, and shaped through close
-                  collaboration.
+                  Hemos hecho que lanzamientos digitales parezcan estrenos de Hollywood,
+                  que embudos de venta conviertan mientras tú estás en la playa,
+                  y que campañas vendan más que un influencer con micrófono.                  
                 </h3>
                 <br />
                 <h3>
-                  With a focus on design and development, we build scalable
-                  solutions that reflect quiet precision and long-term value.
-                  Every project is an exercise in restraint, intention, and
-                  technical care.
+                  Hemos llenado carritos, agotado cursos,
+                  automatizado ventas y escalado marcas que estaban dormidas.
+                  Si quieres despegar como cohete,
+                  hagámoslo épico.
                 </h3>
               </Copy>
 
               <div className="mission-link">
-                <BtnLink route="/work" label="View Work" dark />
+                <BtnLink route="/work" label="Ver casos de éxito" dark />
               </div>
             </div>
           </div>
@@ -146,13 +144,10 @@ const page = () => {
         <section className="recognition">
           <div className="recognition-copy">
             <Copy>
-              <p className="sm caps">(Recognition)</p>
+              <p className="sm caps">(Ahora es tu turno)</p>
               <br />
               <h2>
-                Our work has been recognized by digital platforms and design
-                communities for its clarity, consistency, and attention to
-                detail. We focus on building systems that go beyond visuals
-                experiences.
+                Hemos llenado carritos, agotado lanzamientos, automatizado ventas y despertado marcas dormidas. Ahora, te ayudamos a hacer lo mismo.
               </h2>
             </Copy>
           </div>

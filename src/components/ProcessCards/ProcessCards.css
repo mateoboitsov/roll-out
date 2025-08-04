@@ -12,6 +12,7 @@
   background-color: var(--foreground);
   color: var(--background);
   padding: 1.5rem;
+  padding-top: 4rem;
   display: flex;
   gap: 3rem;
   will-change: transform;
@@ -53,6 +54,18 @@
   width: 75%;
 }
 
+
+
+.process-cards .process-card .process-card-content .process-card-content-wrapper .process-card-header {
+  font-size: clamp(1.8rem, 1.2rem + 3vw, 5rem);
+  line-height: 1.05;
+}
+
+.process-cards .process-card .process-card-index h1 {
+  font-size: clamp(1.8rem, 1.2rem + 3vw, 5rem);
+  line-height: 1.05;
+}
+
 .process-card-img img {
   aspect-ratio: 5/3;
 }
@@ -64,6 +77,10 @@
 
 .process-card-copy-title {
   flex: 2;
+}
+
+.process-card-copy-title .caps {
+  color: #0A1EFE;
 }
 
 .process-card-copy-description {

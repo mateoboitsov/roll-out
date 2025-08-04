@@ -1,0 +1,69 @@
+.aviso-legal {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.al-hero {
+  width: 100vw;
+  height: 40svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.al-content {
+  width: 100%;
+  padding: 1.5rem;
+  margin-top: -5rem;
+}
+
+.al-content-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.al-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.al-section h3 {
+  color: var(--foreground);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.al-section p {
+  color: var(--foreground-200);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+@media (max-width: 1000px) {
+  .al-hero {
+    height: 20svh;
+  }
+  
+  .al-content {
+    margin-top: -1.5rem;
+  }
+  
+  .al-content-wrapper {
+    gap: 3rem;
+  }
+  
+  .al-section {
+    gap: 1rem;
+  }
+  
+  .al-section h3 {
+    font-size: 1.25rem;
+  }
+} 
