@@ -18,7 +18,8 @@ body {
   height: 100%;
 }
 
-.servicios-footer {
+/* Estilos de footer como en el original */
+footer {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -27,51 +28,89 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 5;
-  pointer-events: none;
+  z-index: 2;
 }
 
-.fc-col-lg,
-.fc-col-sm {
+.slider-counter {
   display: flex;
-  align-items: center;
+  color: #fff;
 }
 
-.footer-text {
+.slider-counter p,
+.slider-counter > div {
+  width: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.slider-counter p {
+  opacity: 0.35;
+  color: #fff;
+}
+
+.count {
   position: relative;
-  height: 20px;
+  height: 18px;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
-.footer-text-content {
+.count p {
   position: absolute;
   transform: translateY(0px);
+  font-size: 16px;
+  line-height: 1;
   will-change: transform;
+  opacity: 1;
+  color: #fff;
 }
 
-.footer-text-content p {
+/* Estilos para las flechas de navegación */
+.footer-navigation {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-btn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: #fff;
-  font-size: 14px;
-  font-weight: 300;
-  opacity: 0.8;
+  padding: 0.75em;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "PP Neue Montreal", sans-serif;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.nav-btn:active {
+  transform: scale(0.95);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .servicios-footer {
+  footer {
     padding: 2em;
-  }
-
-  .footer-text-content p {
-    font-size: 12px;
+    flex-direction: column;
+    gap: 1em;
+    text-align: center;
   }
 }
 
 @media (max-width: 480px) {
-  .servicios-footer {
+  footer {
     padding: 1.5em;
-    flex-direction: column;
-    gap: 1em;
-    align-items: flex-start;
   }
 } 

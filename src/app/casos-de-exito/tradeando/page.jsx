@@ -101,7 +101,7 @@ const TradeandoPage = () => {
       <div className="tradeando-page" ref={container}>
         <section className="tradeando-hero">
           <div className="tradeando-hero-bg">
-            <img src="/images/cases/case 1.JPG" alt="Tradeando Hero Image" />
+            <img src="/images/cases/case 1.jpg" alt="Tradeando Hero Image" />
           </div>
 
           <div className="container">
@@ -144,7 +144,7 @@ const TradeandoPage = () => {
 
         <section className="tradeando-outro-banner">
           <div className="tradeando-outro-img">
-            <ParallaxImage src="/images/cases/image.png" alt="Tradeando Success" speed={0.2} />
+            <ParallaxImage src="/images/cases/image-tr.avif" alt="Tradeando Success" speed={0.2} />
           </div>
         </section>
 
@@ -224,7 +224,7 @@ const TradeandoPage = () => {
               <div className="tradeando-copy-img">
                 <div className="tradeando-copy-img-wrapper">
                   <ParallaxImage
-                    src="/images/cases/case 1.JPG"
+                    src="/images/cases/case 1.jpg"
                     alt="Tradeando Platform Interface"
                     speed={0.2}
                   />

@@ -101,7 +101,7 @@ const SansoeursPage = () => {
       <div className="sansoeurs-page" ref={container}>
         <section className="sansoeurs-hero">
           <div className="sansoeurs-hero-bg">
-            <img src="/images/cases/case 2.JPG" alt="Sansoeurs Hero Image" />
+            <img src="/images/cases/case 2.jpg" alt="Sansoeurs Hero Image" />
           </div>
 
           <div className="container">
@@ -207,7 +207,7 @@ const SansoeursPage = () => {
 
         <section className="sansoeurs-outro-banner">
           <div className="sansoeurs-outro-img">
-            <ParallaxImage src="/images/cases/image copy 3.png" alt="Sansoeurs Success" speed={0.2} />
+            <ParallaxImage src="/images/cases/image copy 3.avif" alt="Sansoeurs Success" speed={0.2} />
           </div>
         </section>
 
@@ -222,7 +222,7 @@ const SansoeursPage = () => {
               <div className="sansoeurs-copy-img">
                 <div className="sansoeurs-copy-img-wrapper">
                   <ParallaxImage
-                    src="/images/cases/case 2.JPG"
+                    src="/images/cases/case 2.jpg"
                     alt="Sansoeurs Platform Interface"
                     speed={0.2}
                   />

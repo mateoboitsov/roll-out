@@ -202,21 +202,7 @@ const Menu = ({ onMenuStateChange }) => {
           </div>
         </div>
 
-        <div className="nav-logo-mobile">
-          <div className="revealer">
-            <a
-              href="https://app.rollout-studios.com/auth"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="client-btn"
-            >
-              <span className="sm caps mono">ACCESO CLIENTES</span>
-              <svg className="arrow-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M2.5 9.5L9.5 2.5M9.5 2.5H3M9.5 2.5V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
-          </div>
-        </div>
+
 
         <div className="nav-header-col-sm">
           <div className="nav-menu-time">
@@ -266,7 +252,7 @@ const Menu = ({ onMenuStateChange }) => {
                   }}
                   className={isExactPath("/casos-de-exito") ? "active" : ""}
                 >
-                  <span className="sm caps mono">Casos</span>
+                  <span className="sm caps mono">Resultados</span>
                 </a>
               </div>
             </div>
@@ -280,7 +266,7 @@ const Menu = ({ onMenuStateChange }) => {
                   }}
                   className={isExactPath("/studio") ? "active" : ""}
                 >
-                  <span className="sm caps mono">Studio</span>
+                  <span className="sm caps mono">Nosotros</span>
                 </a>
               </div>
             </div>
@@ -318,8 +304,9 @@ const Menu = ({ onMenuStateChange }) => {
                   href="https://app.rollout-studios.com/auth"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="client-btn"
                 >
-                  <span className="sm caps mono">Para clientes</span>
+                  <span className="sm caps mono">Acceso Clientes</span>
                 </a>
               </div>
             </div>

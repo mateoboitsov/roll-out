@@ -11,11 +11,12 @@ const CasosDeExitoPage = () => {
   const activeCaseRef = useRef(0);
   const directionRef = useRef("next");
   const storyTimeoutRef = useRef(null);
+  const isInitializedRef = useRef(false);
 
   // Datos de casos de éxito
   const casosDeExito = [
     {
-      profileImg: "/images/cases/case 1.JPG",
+      profileColor: "#000000",
       clientName: "Tradeando",
       title: [
         "+1.8 millones de euros",
@@ -24,34 +25,34 @@ const CasosDeExitoPage = () => {
       ],
       linkLabel: "Ver Caso",
       linkSrc: "/casos-de-exito/tradeando",
-      storyImg: "/images/cases/case 1.JPG",
+              storyImg: "/images/cases/case 1.jpg",
     },
     {
-      profileImg: "/images/cases/case 2.JPG",
+      profileColor: "#000000",
       clientName: "Sansoeurs",
       title: ["De 40K a casi", "90K €/mes en", "4 meses"],
       linkLabel: "Ver Caso",
       linkSrc: "/casos-de-exito/sansoeurs",
-      storyImg: "/images/cases/case 2.JPG",
+              storyImg: "/images/cases/case 2.jpg",
     },
     {
-      profileImg: "/images/cases/case 3.JPG",
+      profileColor: "#000000",
       clientName: "Nuria Coll",
       title: ["60.000 leads y", "más de 400.000€", "en facturación"],
       linkLabel: "Ver Caso",
       linkSrc: "/casos-de-exito/nuria-coll",
-      storyImg: "/images/cases/case 3.JPG",
+              storyImg: "/images/cases/case 3.jpg",
     },
     {
-      profileImg: "/images/cases/case 4.JPG",
+      profileColor: "#000000",
       clientName: "Tutete",
       title: ["Más de 42.000", "compras generadas", "en 12 meses"],      
       linkLabel: "Ver Caso",
       linkSrc: "/casos-de-exito/tutete",
-      storyImg: "/images/cases/case 4.JPG",
+              storyImg: "/images/cases/case 4.jpg",
     },
     {
-      profileImg: "/images/cases/image.jpg",
+      profileColor: "#000000",
       clientName: "OFFLESSON",
       title: ["Lanzamos Offlesson", "y el primer día", "éxito total: 600 compras"],
       linkLabel: "Ver Caso",
@@ -59,7 +60,7 @@ const CasosDeExitoPage = () => {
       storyImg: "/images/cases/Macbook 2.jpg",
     },
     {
-      profileImg: "/images/cases/image copy 8.png",
+      profileColor: "#000000",
       clientName: "SER CLOSER",
       title: ["+660.000 € en", "ingresos en 9 meses", "y crecimiento", "sostenido del ROAS"],
       linkLabel: "Ver Caso",
@@ -67,7 +68,7 @@ const CasosDeExitoPage = () => {
       storyImg: "/images/cases/image copy 8.png",
     },
     {
-      profileImg: "/images/cases/image copy 9.png",
+      profileColor: "#000000",
       clientName: "PABLO GIL",
       title: ["+4.3x ROAS en", "campañas evergreen", "y +1.100 leads", "en solo 3 meses"],
       linkLabel: "Ver Caso",
@@ -280,9 +281,10 @@ const CasosDeExitoPage = () => {
     }, 200);
 
     setTimeout(() => {
-      const profileImg = document.querySelector(".profile-icon img");
-      if (profileImg) {
-        profileImg.src = caso.profileImg;
+      const profileIcon = document.querySelector(".profile-icon div");
+      if (profileIcon) {
+        profileIcon.style.backgroundColor = caso.profileColor;
+        profileIcon.textContent = caso.clientName.charAt(0);
       }
 
       const link = document.querySelector(".link a");
@@ -294,21 +296,24 @@ const CasosDeExitoPage = () => {
   };
 
   useEffect(() => {
-    // Inicializar el autoplay
-    const initTimer = setTimeout(() => {
-      animateIndexHighlight(activeCaseRef.current);
-      storyTimeoutRef.current = setTimeout(() => changeCase(true), storyDuration);
-    }, 1000);
+    // Solo inicializar una vez
+    if (!isInitializedRef.current) {
+      isInitializedRef.current = true;
+      
+      // Inicializar el autoplay después de un delay
+      const initTimer = setTimeout(() => {
+        animateIndexHighlight(activeCaseRef.current);
+        storyTimeoutRef.current = setTimeout(() => changeCase(true), storyDuration);
+      }, 1000);
 
-
-
-    return () => {
-      clearTimeout(initTimer);
-      if (storyTimeoutRef.current) {
-        clearTimeout(storyTimeoutRef.current);
-      }
-    };
-  }, []);
+      return () => {
+        clearTimeout(initTimer);
+        if (storyTimeoutRef.current) {
+          clearTimeout(storyTimeoutRef.current);
+        }
+      };
+    }
+  }, []); // Sin dependencias para que solo se ejecute una vez
 
   function slideInOut() {
     document.documentElement.animate(
@@ -402,7 +407,9 @@ const CasosDeExitoPage = () => {
 
             <div className="profile">
               <div className="profile-icon">
-                <img src={casosDeExito[activeCaseRef.current].profileImg} alt="" />
+                <div style={{ backgroundColor: casosDeExito[activeCaseRef.current].profileColor }}>
+                  {casosDeExito[activeCaseRef.current].clientName.charAt(0)}
+                </div>
               </div>
               <div className="profile-name">
                 <p>{casosDeExito[activeCaseRef.current].clientName}</p>
@@ -432,17 +439,17 @@ const CasosDeExitoPage = () => {
         <div className="fc-col-lg">
           <div className="footer-text">
             <div className="footer-text-content">
-              <p className="sm caps">Roll Out Studios</p>
+              <p className="sm caps footer-brand">Roll Out Studios</p>
             </div>
           </div>
         </div>
         <div className="fc-col-sm">
           <div className="footer-navigation">
             <button className="nav-btn prev-btn" onClick={handlePrevClick}>
-              Anterior
+              ←
             </button>
             <button className="nav-btn next-btn" onClick={handleNextClick}>
-              Siguiente
+              →
             </button>
           </div>
         </div>

@@ -1,12 +1,13 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import gsap from "gsap";
+import { CustomEase } from "gsap/CustomEase";
 import "./InfiniteCarousel.css";
 
-// Función de easing personalizada usando GSAP
-const customEase = "power4.inOut(1.7)";
+// Registrar CustomEase con GSAP
+gsap.registerPlugin(CustomEase);
 
-const InfiniteCarousel = ({ services }) => {
+const InfiniteCarousel = forwardRef(({ services, onSlideChange }, ref) => {
   const sliderRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -14,6 +15,15 @@ const InfiniteCarousel = ({ services }) => {
   const [lastScrollTime, setLastScrollTime] = useState(0);
 
   const totalSlides = services.length;
+  const contentUpdateDelay = 0.4;
+
+  // Exponer funciones al componente padre
+  useImperativeHandle(ref, () => ({
+    animateSlide: (direction) => {
+      if (isAnimating || !scrollAllowed) return;
+      animateSlide(direction);
+    }
+  }));
 
   const createSlide = (slideNumber, direction) => {
     const slide = document.createElement("div");
@@ -24,7 +34,10 @@ const InfiniteCarousel = ({ services }) => {
 
     const img = document.createElement("img");
     img.src = services[slideNumber - 1].image;
-    img.alt = services[slideNumber - 1].title;
+    const serviceForAlt = services[slideNumber - 1];
+    img.alt = Array.isArray(serviceForAlt.titleLines) && serviceForAlt.titleLines.length > 0
+      ? serviceForAlt.titleLines.join(" ")
+      : serviceForAlt.title;
 
     slideBgImg.appendChild(img);
     slide.appendChild(slideBgImg);
@@ -45,7 +58,10 @@ const InfiniteCarousel = ({ services }) => {
 
     const img = document.createElement("img");
     img.src = services[slideNumber - 1].image;
-    img.alt = services[slideNumber - 1].title;
+    const serviceForAlt2 = services[slideNumber - 1];
+    img.alt = Array.isArray(serviceForAlt2.titleLines) && serviceForAlt2.titleLines.length > 0
+      ? serviceForAlt2.titleLines.join(" ")
+      : serviceForAlt2.title;
 
     wrapper.appendChild(img);
 
@@ -60,19 +76,36 @@ const InfiniteCarousel = ({ services }) => {
   };
 
   const createTextElements = (slideNumber, direction) => {
-    const newTitle = document.createElement("h1");
-    newTitle.textContent = services[slideNumber - 1].title;
-    gsap.set(newTitle, {
-      y: direction === "down" ? 50 : -50,
-    });
+    const service = services[slideNumber - 1];
 
-    const newDescription = document.createElement("p");
-    newDescription.textContent = services[slideNumber - 1].description;
-    gsap.set(newDescription, {
-      y: direction === "down" ? 20 : -20,
-    });
+    const newTitleRows = [];
+    if (Array.isArray(service.titleLines) && service.titleLines.length > 0) {
+      service.titleLines.forEach((line) => {
+        const row = document.createElement("div");
+        row.className = "slide-title-row";
+        const h1 = document.createElement("h1");
+        h1.textContent = line;
+        row.appendChild(h1);
+        gsap.set(h1, { y: direction === "down" ? 48 : -48 });
+        newTitleRows.push(row);
+      });
+    } else {
+      const h1 = document.createElement("h1");
+      h1.textContent = service.title;
+      gsap.set(h1, { y: direction === "down" ? 50 : -50 });
+      newTitleRows.push(h1);
+    }
 
-    return { newTitle, newDescription };
+    let newDescription = null;
+    if (!Array.isArray(service.titleLines) && service.description) {
+      newDescription = document.createElement("p");
+      newDescription.textContent = service.description;
+      gsap.set(newDescription, {
+        y: direction === "down" ? 20 : -20,
+      });
+    }
+
+    return { newTitleRows, newDescription };
   };
 
   const animateSlide = (direction) => {
@@ -91,7 +124,10 @@ const InfiniteCarousel = ({ services }) => {
     const titleContainer = slider.querySelector(".slide-title");
     const descriptionContainer = slider.querySelector(".slide-description");
 
-    const currentTitle = titleContainer.querySelector("h1");
+    const currentTitleRows = Array.from(titleContainer.querySelectorAll(".slide-title-row"));
+    const currentTitleH1s = currentTitleRows.length
+      ? currentTitleRows.map((row) => row.querySelector("h1")).filter(Boolean)
+      : Array.from(titleContainer.querySelectorAll("h1"));
     const currentDescription = descriptionContainer.querySelector("p");
 
     let newSlideNumber;
@@ -102,31 +138,80 @@ const InfiniteCarousel = ({ services }) => {
     }
 
     setCurrentSlide(newSlideNumber);
+    
+    // Notificar al componente padre sobre el cambio de slide
+    if (onSlideChange) {
+      onSlideChange(newSlideNumber);
+    }
 
     const newSlide = createSlide(newSlideNumber, direction);
     const newMainWrapper = createMainImageWrapper(newSlideNumber, direction);
-    const { newTitle, newDescription } = createTextElements(
-      newSlideNumber,
-      direction
-    );
+
+    // Solo usaremos la parte de descripción de createTextElements; el título lo animamos por slots como en Casos de Éxito
+    const { newDescription } = createTextElements(newSlideNumber, direction);
 
     slider.appendChild(newSlide);
     mainImageContainer.appendChild(newMainWrapper);
-    titleContainer.appendChild(newTitle);
-    descriptionContainer.appendChild(newDescription);
+    if (newDescription) {
+      descriptionContainer.appendChild(newDescription);
+    }
 
     gsap.set(newMainWrapper.querySelector("img"), {
       y: direction === "down" ? "-50%" : "50%",
     });
 
+    // Preparar animación de texto por filas (slots)
+    const serviceNext = services[newSlideNumber - 1];
+    const nextLines = Array.isArray(serviceNext.titleLines)
+      ? serviceNext.titleLines
+      : [serviceNext.title];
+
+    const currentRows = Array.from(titleContainer.querySelectorAll(".slide-title-row"));
+    const outgoingH1s = [];
+    const incomingH1s = [];
+    const rowsToRemove = [];
+    const oldH1sToRemove = [];
+
+    // Asegurar suficientes filas para las nuevas líneas
+    for (let i = 0; i < nextLines.length; i += 1) {
+      const line = nextLines[i];
+      let row = currentRows[i];
+      if (!row) {
+        row = document.createElement("div");
+        row.className = "slide-title-row";
+        titleContainer.appendChild(row);
+      }
+      const currentH1 = row.querySelector("h1");
+      if (currentH1) {
+        outgoingH1s.push(currentH1);
+        oldH1sToRemove.push(currentH1);
+      }
+      const newH1 = document.createElement("h1");
+      newH1.textContent = line;
+      gsap.set(newH1, { y: direction === "down" ? 48 : -48, opacity: 0 });
+      row.appendChild(newH1);
+      incomingH1s.push(newH1);
+    }
+
+    // Filas sobrantes (si antes había más que ahora)
+    for (let j = nextLines.length; j < currentRows.length; j += 1) {
+      const extraRow = currentRows[j];
+      const h1 = extraRow.querySelector("h1");
+      if (h1) {
+        outgoingH1s.push(h1);
+        oldH1sToRemove.push(h1);
+      }
+      rowsToRemove.push(extraRow);
+    }
+
     const tl = gsap.timeline({
       onComplete: () => {
-        [
-          currentSlideElement,
-          currentMainWrapper,
-          currentTitle,
-          currentDescription,
-        ].forEach((el) => el?.remove());
+        // Limpiar texto: eliminar h1 antiguos de filas conservadas y filas sobrantes completas
+        oldH1sToRemove.forEach((h1) => h1?.remove());
+        rowsToRemove.forEach((row) => row?.remove());
+
+        // Limpiar otros elementos
+        [currentSlideElement, currentMainWrapper, currentDescription].forEach((el) => el?.remove());
 
         setIsAnimating(false);
         setTimeout(() => {
@@ -144,85 +229,97 @@ const InfiniteCarousel = ({ services }) => {
             ? "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)"
             : "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
         duration: 1.25,
-        ease: customEase,
+        ease: CustomEase.create("", ".87,0,.13,1"),
       },
       0
-    )
-      .to(
-        currentSlideElement.querySelector("img"),
+    );
+    tl.to(
+      currentSlideElement.querySelector("img"),
+      {
+        scale: 1.5,
+        duration: 1.25,
+        ease: CustomEase.create("", ".87,0,.13,1"),
+      },
+      0
+    );
+    tl.to(
+      newMainWrapper,
+      {
+        clipPath:
+          direction === "down"
+            ? "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)"
+            : "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+        duration: 1.25,
+        ease: CustomEase.create("", ".87,0,.13,1"),
+      },
+      0
+    );
+    tl.to(
+      currentMainWrapper.querySelector("img"),
+      {
+        y: direction === "down" ? "50%" : "-50%",
+        duration: 1.25,
+        ease: CustomEase.create("", ".87,0,.13,1"),
+      },
+      0
+    );
+    tl.to(
+      newMainWrapper.querySelector("img"),
+      {
+        y: "0%",
+        duration: 1.25,
+        ease: CustomEase.create("", ".87,0,.13,1"),
+      },
+      0
+    );
+    if (outgoingH1s.length) {
+      tl.to(
+        outgoingH1s,
         {
-          scale: 1.5,
-          duration: 1.25,
-          ease: customEase,
+          y: direction === "down" ? -48 : 48,
+          opacity: 0,
+          duration: 0.5,
+          delay: contentUpdateDelay,
+          ease: "power4.inOut",
         },
         0
-      )
-      .to(
-        newMainWrapper,
-        {
-          clipPath:
-            direction === "down"
-              ? "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)"
-              : "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
-          duration: 1.25,
-          ease: customEase,
-        },
-        0
-      )
-      .to(
-        currentMainWrapper.querySelector("img"),
-        {
-          y: direction === "down" ? "50%" : "-50%",
-          duration: 1.25,
-          ease: customEase,
-        },
-        0
-      )
-      .to(
-        newMainWrapper.querySelector("img"),
-        {
-          y: "0%",
-          duration: 1.25,
-          ease: customEase,
-        },
-        0
-      )
-      .to(
-        currentTitle,
-        {
-          y: direction === "down" ? -50 : 50,
-          duration: 1.25,
-          ease: customEase,
-        },
-        0
-      )
-      .to(
-        newTitle,
+      );
+    }
+    if (incomingH1s.length) {
+      tl.to(
+        incomingH1s,
         {
           y: 0,
-          duration: 1.25,
-          ease: customEase,
+          opacity: 1,
+          duration: 0.5,
+          delay: contentUpdateDelay,
+          ease: "power4.inOut",
         },
         0
-      )
-      .to(
+      );
+    }
+    if (currentDescription) {
+      tl.to(
         currentDescription,
         {
           y: direction === "down" ? -20 : 20,
           duration: 1.25,
-          ease: customEase,
+          ease: CustomEase.create("", ".87,0,.13,1"),
         },
         0
-      )
-      .to(
+      );
+    }
+    if (newDescription) {
+      tl.to(
         newDescription,
         {
           y: 0,
           duration: 1.25,
-          ease: customEase,
+          ease: CustomEase.create("", ".87,0,.13,1"),
         },
         0
       );
+    }
   };
 
   const handleScroll = (direction) => {
@@ -295,23 +392,27 @@ const InfiniteCarousel = ({ services }) => {
 
         <div className="slide-copy">
           <div className="slide-title">
-            <h1>{services[0].title}</h1>
+            {Array.isArray(services[0].titleLines) && services[0].titleLines.length > 0 ? (
+              services[0].titleLines.map((line, idx) => (
+                <div className="slide-title-row" key={idx}>
+                  <h1>{line}</h1>
+                </div>
+              ))
+            ) : (
+              <h1>{services[0].title}</h1>
+            )}
           </div>
           <div className="slide-description">
-            <p>{services[0].description}</p>
+            {!Array.isArray(services[0].titleLines) && services[0].description ? (
+              <p>{services[0].description}</p>
+            ) : null}
           </div>
         </div>
-      </div>
-
-      <div className="slider-counter">
-        <div className="count">
-          <p>{currentSlide}</p>
-        </div>
-        <p>/</p>
-        <p>{totalSlides}</p>
       </div>
     </div>
   );
-};
+});
+
+InfiniteCarousel.displayName = "InfiniteCarousel";
 
 export default InfiniteCarousel;

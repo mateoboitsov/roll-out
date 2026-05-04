@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useTransitionRouter } from "next-view-transitions";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -9,27 +9,27 @@ import "./servicios.css";
 const ServiciosPage = () => {
   const router = useTransitionRouter();
   const serviciosRef = useRef(null);
+  const counterRef = useRef(null);
+  const carouselRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(1);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   // Datos de servicios para el carrusel
   const servicios = [
     {
-      title: "Lanzamientos & Infoproductos",
-      description: "Estrategias de lanzamiento digital",
+      titleLines: ["Lanzamientos", "& Infoproductos"],
       image: "/images/archive/img55.jpeg"
     },
     {
-      title: "Ecommerce & Performance",
-      description: "Optimización de tiendas online",
+      titleLines: ["Ecommerce", "& Performance"],
       image: "/images/archive/img13.jpeg"
     },
     {
-      title: "Marketing Digital Estratégico",
-      description: "Planes de marketing integral",
+      titleLines: ["Marketing Digital", "Estratégico"],
       image: "/images/archive/img56.jpeg"
     },
     {
-      title: "Consultoría & Growth Partner",
-      description: "Asesoramiento estratégico",
+      titleLines: ["Consultoría", "& Growth Partner"],
       image: "/images/archive/img53.jpeg"
     }
   ];
@@ -53,6 +53,51 @@ const ServiciosPage = () => {
     },
     { scope: serviciosRef }
   );
+
+  // Función para animar el contador
+  const animateCounter = (newSlideNumber, direction) => {
+    if (isAnimating) return;
+    
+    setIsAnimating(true);
+    
+    const counterContainer = counterRef.current;
+    const currentCounter = counterContainer.querySelector("p");
+    
+    const newCounter = document.createElement("p");
+    newCounter.textContent = newSlideNumber;
+    
+    gsap.set(newCounter, {
+      y: direction === "down" ? 18 : -18,
+    });
+    
+    counterContainer.appendChild(newCounter);
+    
+    const tl = gsap.timeline({
+      onComplete: () => {
+        currentCounter?.remove();
+        setIsAnimating(false);
+      },
+    });
+    
+    tl.to(
+      currentCounter,
+      {
+        y: direction === "down" ? -18 : 18,
+        duration: 1.25,
+        ease: "power4.inOut(1.7)",
+      },
+      0
+    )
+    .to(
+      newCounter,
+      {
+        y: 0,
+        duration: 1.25,
+        ease: "power4.inOut(1.7)",
+      },
+      0
+    );
+  };
 
   function slideInOut() {
     document.documentElement.animate(
@@ -99,27 +144,58 @@ const ServiciosPage = () => {
     });
   };
 
+  const handleSlideChange = (slideNumber) => {
+    const direction = slideNumber > currentSlide || (currentSlide === servicios.length && slideNumber === 1) ? "down" : "up";
+    setCurrentSlide(slideNumber);
+    animateCounter(slideNumber, direction);
+  };
+
+  // Funciones para navegación manual con flechas
+  const handlePrevClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (carouselRef.current && typeof carouselRef.current.animateSlide === 'function') {
+      carouselRef.current.animateSlide("up");
+    }
+  };
+
+  const handleNextClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (carouselRef.current && typeof carouselRef.current.animateSlide === 'function') {
+      carouselRef.current.animateSlide("down");
+    }
+  };
+
   return (
     <div className="servicios-page" ref={serviciosRef}>
-      <div className="servicios-carousel">
-        <InfiniteCarousel services={servicios} />
-      </div>
+      <footer>
+        <div className="slider-counter">
+          <div className="count" ref={counterRef}>
+            <p>{currentSlide}</p>
+          </div>
+          <p>/</p>
+          <p>{servicios.length}</p>
+        </div>
+        
+        <div className="footer-navigation">
+          <button className="nav-btn prev-btn" onClick={handlePrevClick}>
+            ←
+          </button>
+          <button className="nav-btn next-btn" onClick={handleNextClick}>
+            →
+          </button>
+        </div>
+      </footer>
 
-      <div className="servicios-footer">
-        <div className="fc-col-lg">
-          <div className="footer-text">
-            <div className="footer-text-content">
-              <p className="sm caps">Roll Out Studios</p>
-            </div>
-          </div>
-        </div>
-        <div className="fc-col-sm">
-          <div className="footer-text">
-            <div className="footer-text-content">
-              <p className="sm caps">&copy; 2025 All Rights Reserved</p>
-            </div>
-          </div>
-        </div>
+      <div className="servicios-carousel">
+        <InfiniteCarousel 
+          ref={carouselRef}
+          services={servicios} 
+          onSlideChange={handleSlideChange} 
+        />
       </div>
     </div>
   );

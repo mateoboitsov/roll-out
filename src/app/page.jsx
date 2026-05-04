@@ -1,207 +1,45 @@
-"use client";
 import "./home.css";
-import { useState, useEffect } from "react";
+import { Suspense } from "react";
+import HomeClient from "./HomeClient";
 
-import DynamicBackground from "../components/DynamicBackground/DynamicBackground.jsx";
-import Copy from "../components/Copy/Copy";
-import BtnLink from "../components/BtnLink/BtnLink";
-
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CustomEase from "gsap/CustomEase";
-
-gsap.registerPlugin(ScrollTrigger, CustomEase);
-CustomEase.create("hop", "0.9, 0, 0.1, 1");
-
-let isInitialLoad = true;
+export const metadata = {
+  title: "Inicio",
+  description: "Roll Out Studios - Estudio creativo especializado en marketing digital estratégico. Pensamos con estrategia y ejecutamos con creatividad para crear marcas fuertes y lograr ventas constantes.",
+  keywords: [
+    "marketing digital",
+    "estrategia creativa", 
+    "lanzamientos digitales",
+    "infoproductos",
+    "ecommerce",
+    "consultoría marketing",
+    "Portugal",
+    "Roll Out Studios"
+  ],
+  openGraph: {
+    title: "Roll Out Studios - Marketing Digital Estratégico",
+    description: "Pensamos con estrategia y ejecutamos con creatividad para crear marcas fuertes y lograr ventas constantes.",
+    images: [
+      {
+        url: '/images/studio/hero.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Roll Out Studios - Hero Image',
+      }
+    ],
+  },
+  twitter: {
+    title: "Roll Out Studios - Marketing Digital Estratégico",
+    description: "Pensamos con estrategia y ejecutamos con creatividad para crear marcas fuertes y lograr ventas constantes.",
+  },
+  alternates: {
+    canonical: '/',
+  },
+};
 
 export default function Home() {
-  const [showPreloader, setShowPreloader] = useState(isInitialLoad);
-
-  useEffect(() => {
-    return () => {
-      isInitialLoad = false;
-    };
-  }, []);
-
-  useGSAP(() => {
-    const heroLink = document.querySelector(".hero-link");
-    const animationDelay = showPreloader ? 6.2 : 0.9;
-
-    if (showPreloader) {
-      const tl = gsap.timeline({
-        delay: 0.3,
-        defaults: {
-          ease: "hop",
-        },
-      });
-
-      const counts = document.querySelectorAll(".count");
-      const progressBar = document.querySelector(".progress-bar");
-      const preloaderOverlay = document.querySelector(".preloader-overlay");
-
-      const progressTl = gsap.timeline({
-        delay: 0.3,
-      });
-
-      counts.forEach((count, index) => {
-        const digits = count.querySelectorAll(".digit h1");
-
-        tl.to(
-          digits,
-          {
-            y: "0%",
-            duration: 1,
-            stagger: 0.075,
-          },
-          index * 1
-        );
-
-        if (index < counts.length) {
-          tl.to(
-            digits,
-            {
-              y: "-120%",
-              duration: 1,
-              stagger: 0.075,
-            },
-            index * 1 + 1
-          );
-        }
-
-        progressTl.to(
-          progressBar,
-          {
-            scaleY: (index + 1) / counts.length,
-            duration: 1,
-            ease: "hop",
-          },
-          index * 1
-        );
-      });
-
-      progressTl
-        .set(progressBar, {
-          transformOrigin: "top",
-        })
-        .to(progressBar, {
-          scaleY: 0,
-          duration: 0.75,
-          ease: "hop",
-        })
-        .to(preloaderOverlay, {
-          opacity: 0,
-          duration: 0.3,
-          ease: "power2.out",
-          onComplete: () => {
-            preloaderOverlay.style.display = "none";
-          },
-        });
-    }
-
-    if (heroLink) {
-      gsap.set(heroLink, { y: 30, opacity: 0 });
-
-      gsap.to(heroLink, {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        delay: animationDelay,
-        ease: "power4.out",
-      });
-    }
-  }, [showPreloader]);
-
   return (
-    <>
-      {showPreloader && (
-        <div className="preloader-overlay">
-          <div className="progress-bar"></div>
-          <div className="counter">
-            <div className="count">
-              <div className="digit">
-                <h1>0</h1>
-              </div>
-              <div className="digit">
-                <h1>0</h1>
-              </div>
-            </div>
-            <div className="count">
-              <div className="digit">
-                <h1>2</h1>
-              </div>
-              <div className="digit">
-                <h1>7</h1>
-              </div>
-            </div>
-            <div className="count">
-              <div className="digit">
-                <h1>6</h1>
-              </div>
-              <div className="digit">
-                <h1>5</h1>
-              </div>
-            </div>
-            <div className="count">
-              <div className="digit">
-                <h1>9</h1>
-              </div>
-              <div className="digit">
-                <h1>8</h1>
-              </div>
-            </div>
-            <div className="count">
-              <div className="digit">
-                <h1>9</h1>
-              </div>
-              <div className="digit">
-                <h1>9</h1>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <section className="hero">
-        <DynamicBackground logoPath="/images/logos/logo_light.png" />
-
-        <div className="hero-content">
-          <div className="hero-header">
-            <div className="hero-header-col-lg"></div>
-            <div className="hero-header-col-sm">
-              <Copy animateOnScroll={false} delay={showPreloader ? 6.2 : 0.9}>
-                <h3>
-                  Pensamos con estrategia y ejecutamos con creatividad para crear marcas fuertes y lograr ventas constantes.
-                </h3>
-              </Copy>
-            </div>
-          </div>
-
-          <div className="hero-footer">
-            <div className="hero-footer-col-lg">
-              <Copy animateOnScroll={false} delay={showPreloader ? 6.2 : 0.9}>
-                <p className="sm caps mono">Roll Out Studios</p>
-                <p className="sm caps mono">Portugal</p>
-              </Copy>
-            </div>
-            <div className="hero-footer-col-sm">
-              <div className="hero-tags">
-                <Copy animateOnScroll={false} delay={showPreloader ? 6.2 : 0.9}>
-                  <p className="sm caps mono">Lanzamientos & Infoproductos</p>
-                  <p className="sm caps mono">Ecommerce & Performance</p>
-                  <p className="sm caps mono">Marketing Digital Estratégico</p>
-                  <p className="sm caps mono">Consultoría & Growth Partner</p>
-                </Copy>
-              </div>
-
-              <div className="hero-link">
-                <BtnLink route="/contact" label="contacto" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeClient />
+    </Suspense>
   );
 }

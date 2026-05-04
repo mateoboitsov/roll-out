@@ -2,6 +2,7 @@
 import { useState } from "react";
 
 import Menu from "./components/Menu/Menu";
+import UTMPopup from "./components/UTMPopup/UTMPopup";
 
 import { ReactLenis } from "lenis/react";
 
@@ -25,7 +26,7 @@ export default function ClientLayout({ children }) {
         syncTouch: true,
       }
     : {
-        duration: 1.2,
+        duration: 2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: "vertical",
         gestureDirection: "vertical",
@@ -44,6 +45,7 @@ export default function ClientLayout({ children }) {
     <ReactLenis root options={scrollSettings}>
       <>
         <Menu />
+        <UTMPopup />
       </>
       {children}
     </ReactLenis>

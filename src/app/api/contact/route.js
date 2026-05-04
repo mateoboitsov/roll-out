@@ -14,7 +14,7 @@ export async function POST(request) {
     };
     
     // Enviar al webhook de Slack
-    const response = await fetch('https://hooks.slack.com/services/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', {
+    const response = await fetch('process.env.SLACK_WEBHOOK_URL', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

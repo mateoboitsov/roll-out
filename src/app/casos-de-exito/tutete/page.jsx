@@ -101,7 +101,7 @@ const TutetePage = () => {
       <div className="tutete-page" ref={container}>
         <section className="tutete-hero">
           <div className="tutete-hero-bg">
-            <img src="/images/cases/case 4.JPG" alt="Tutete Hero Image" />
+            <img src="/images/cases/case 4.jpg" alt="Tutete Hero Image" />
           </div>
 
           <div className="container">
@@ -229,7 +229,7 @@ const TutetePage = () => {
               <div className="tutete-copy-img">
                 <div className="tutete-copy-img-wrapper">
                   <ParallaxImage
-                    src="/images/cases/case 4.JPG"
+                    src="/images/cases/case 4.jpg"
                     alt="Tutete Platform Interface"
                     speed={0.2}
                   />

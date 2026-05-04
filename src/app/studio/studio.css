@@ -124,6 +124,14 @@
     padding: 7.5rem 1.5rem 1.5rem 1.5rem;
   }
 
+  .studio-hero h1 {
+    font-size: 16vw;
+  }
+
+  .studio-hero-img {
+    margin: 7rem auto -25% auto;
+  }
+
   .studio-header-copy,
   .mission-intro-copy,
   .recognition-copy {

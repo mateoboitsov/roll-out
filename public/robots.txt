@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://rollout-studios.com/sitemap.xml
+
+# Crawl-delay para respetar el servidor
+Crawl-delay: 1
+
+# Permitir acceso a recursos importantes
+Allow: /images/
+Allow: /fonts/
+Allow: /api/
+
+# Bloquear acceso a archivos de desarrollo
+Disallow: /_next/
+Disallow: /api/contact
+Disallow: /admin/
+Disallow: /private/

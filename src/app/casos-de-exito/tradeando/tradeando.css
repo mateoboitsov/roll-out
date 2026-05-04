@@ -139,16 +139,12 @@ section.results {
   min-height: 100svh;
 }
 
-.results-header {
-  position: absolute;
-  padding-top: 4em;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100svh;
-  overflow: hidden;
-  will-change: transform;
-}
+  .results-header {
+    position: relative;
+    padding-top: 4em;
+    width: 100%;
+    overflow: visible;
+  }
 
 .results-header .container {
   padding-left: 1.5rem;
@@ -383,17 +379,29 @@ section.results {
     height: 100svh;
   }
 
+  .tradeando-header {
+    display: block;
+  }
+
+  .tradeando-header .col-sm {
+    display: none;
+  }
+
   .tradeando-hero .container h1 {
     width: 80%;
-    font-size: 15vw;
+    font-size: 11vw;
   }
 
   .tradeando-tagline {
     position: relative;
     top: 0rem;
-    width: 100vw;
+    width: 100%;
     flex-direction: column;
     gap: 1em;
+  }
+
+  .tradeando-tagline .col-lg {
+    display: none;
   }
 
   .tradeando-copy .container {
@@ -415,7 +423,7 @@ section.results {
 
   .metrics {
     width: 100%;
-    padding: 70vh 20px 4em 20px;
+    padding: 4em 20px;
   }
 
   .metric:not(:last-child) {
@@ -423,6 +431,10 @@ section.results {
   }
 
   .metrics .col:nth-child(1) {
+    display: none;
+  }
+
+  .metrics .col-lg {
     display: none;
   }
 
@@ -460,9 +472,7 @@ section.results {
     grid-template-columns: 1fr;
   }
   
-  .tradeando-hero .container {
-    padding-top: 2em;
-  }
+
   
   .tradeando-copy {
     padding: 4em 0;

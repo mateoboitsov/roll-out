@@ -73,4 +73,8 @@
   .whoweare-img {
     width: 50vw;
   }
+    
+  .whoweare .whoweare-header h1 {
+    font-size: 40vw;
+  }
 }

@@ -14,6 +14,7 @@ const DynamicBackground = ({ logoPath = "/images/logos/logo_light.png" }) => {
   const execCountRef = useRef(0);
   const isCleanedUpRef = useRef(false);
   const isMobileRef = useRef(false);
+  const mobileLogoRef = useRef(null);
 
   const CONFIG = {
     canvasBg: "#1a1a1a",
@@ -32,6 +33,33 @@ const DynamicBackground = ({ logoPath = "/images/logos/logo_light.png" }) => {
     isMobileRef.current = checkMobile();
 
     if (isMobileRef.current) {
+      // En móvil, mostrar el logo estático
+      const mobileLogo = document.createElement("img");
+      mobileLogo.src = "/images/Logo.png";
+      mobileLogo.style.cssText = `
+        position: absolute;
+        top: 25%;
+        left: 0%;
+        transform: translate(-1%, -50%);
+        max-width: 80%;
+        max-height: 60%;
+        object-fit: contain;
+        z-index: 1;
+        pointer-events: none;
+      `;
+      
+      // Debug: verificar que el logo se carga
+      mobileLogo.onload = () => {
+        console.log("Logo móvil cargado correctamente");
+      };
+      
+      mobileLogo.onerror = () => {
+        console.error("Error al cargar el logo móvil:", mobileLogo.src);
+      };
+      
+      canvas.parentElement.appendChild(mobileLogo);
+      mobileLogoRef.current = mobileLogo;
+      
       return;
     }
 
@@ -418,10 +446,21 @@ const DynamicBackground = ({ logoPath = "/images/logos/logo_light.png" }) => {
     document.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("resize", handleResize);
 
+    // En móvil, también escuchar cambios de orientación
+    if (isMobileRef.current) {
+      window.addEventListener("orientationchange", handleResize);
+    }
+
     loadLogo();
 
     return () => {
       isCleanedUpRef.current = true;
+
+      // Limpiar logo móvil si existe
+      if (mobileLogoRef.current) {
+        mobileLogoRef.current.remove();
+        mobileLogoRef.current = null;
+      }
 
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
@@ -430,6 +469,11 @@ const DynamicBackground = ({ logoPath = "/images/logos/logo_light.png" }) => {
 
       document.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
+      
+      // Limpiar listener de orientación en móvil
+      if (isMobileRef.current) {
+        window.removeEventListener("orientationchange", handleResize);
+      }
 
       if (gl && !gl.isContextLost()) {
         try {

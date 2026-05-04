@@ -142,7 +142,7 @@ const SerCloserPage = () => {
 
         <section className="ser-closer-outro-banner">
           <div className="ser-closer-outro-img">
-            <ParallaxImage src="/images/cases/image copy 10.png" alt="SER CLOSER Success" speed={0.2} />
+            <ParallaxImage src="/images/cases/image copy 10.avif" alt="SER CLOSER Success" speed={0.2} />
           </div>
         </section>
 
@@ -206,7 +206,7 @@ const SerCloserPage = () => {
 
         <section className="ser-closer-outro-banner">
           <div className="ser-closer-outro-img">
-            <ParallaxImage src="/images/cases/image copy 10.png" alt="SER CLOSER Success" speed={0.2} />
+            <ParallaxImage src="/images/cases/image copy 10.avif" alt="SER CLOSER Success" speed={0.2} />
           </div>
         </section>
 

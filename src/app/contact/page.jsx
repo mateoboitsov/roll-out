@@ -190,7 +190,7 @@ const page = () => {
     <div className="contact" ref={contactRef}>
       <div className="contact-img-wrapper">
         <div className="contact-img">
-          <img src="/images/contact/image 1.jpg" alt="" />
+          <img src="/images/contact/Contacto1.avif" alt="" />
         </div>
       </div>
       <div className="contact-copy">
