@@ -6,7 +6,7 @@ export async function POST(request) {
     const timestamp = new Date().toLocaleString('es-ES', { timeZone: 'Europe/Lisbon' });
 
     // Slack
-    await fetch('process.env.SLACK_WEBHOOK_URL', {
+    await fetch(process.env.SLACK_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
