@@ -101,7 +101,7 @@ const PabloGilPage = () => {
       <div className="pablo-gil-page" ref={container}>
         <section className="pablo-gil-hero">
           <div className="pablo-gil-hero-bg">
-            <img src="/images/cases/image copy 9.png" alt="PABLO GIL Hero Image" />
+            <img src="/images/cases/image-copy-9.png" alt="PABLO GIL Hero Image" />
           </div>
 
                   <div className="container">
@@ -142,7 +142,7 @@ const PabloGilPage = () => {
 
         <section className="pablo-gil-outro-banner">
           <div className="pablo-gil-outro-img">
-            <ParallaxImage src="/images/cases/image copy 12.png" alt="PABLO GIL Success" speed={0.2} />
+            <ParallaxImage src="/images/cases/image-copy-12.png" alt="PABLO GIL Success" speed={0.2} />
           </div>
         </section>
 
@@ -207,7 +207,7 @@ const PabloGilPage = () => {
 
         <section className="pablo-gil-outro-banner">
           <div className="pablo-gil-outro-img">
-            <ParallaxImage src="/images/cases/image copy 12.png" alt="PABLO GIL Success" speed={0.2} />
+            <ParallaxImage src="/images/cases/image-copy-12.png" alt="PABLO GIL Success" speed={0.2} />
           </div>
         </section>
 
@@ -222,7 +222,7 @@ const PabloGilPage = () => {
               <div className="pablo-gil-copy-img">
                 <div className="pablo-gil-copy-img-wrapper">
                   <ParallaxImage
-                    src="/images/cases/image copy 9.png"
+                    src="/images/cases/image-copy-9.png"
                     alt="PABLO GIL Digital Nomad School"
                     speed={0.2}
                   />

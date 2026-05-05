@@ -101,7 +101,7 @@ const OfflessonPage = () => {
       <div className="offlesson-page" ref={container}>
         <section className="offlesson-hero">
           <div className="offlesson-hero-bg">
-            <img src="/images/cases/Frame 339.jpg" alt="OFFLESSON Hero Image" />
+            <img src="/images/cases/frame-339.jpg" alt="OFFLESSON Hero Image" />
           </div>
 
                   <div className="container">
@@ -142,7 +142,7 @@ const OfflessonPage = () => {
 
         <section className="offlesson-outro-banner">
           <div className="offlesson-outro-img">
-            <ParallaxImage src="/images/cases/MacBook.jpg" alt="OFFLESSON Success" speed={0.2} />
+            <ParallaxImage src="/images/cases/macbook.jpg" alt="OFFLESSON Success" speed={0.2} />
           </div>
         </section>
 
@@ -222,7 +222,7 @@ const OfflessonPage = () => {
               <div className="offlesson-copy-img">
                 <div className="offlesson-copy-img-wrapper">
                   <ParallaxImage
-                    src="/images/cases/Macbook 2.jpg"
+                    src="/images/cases/macbook-2.jpg"
                     alt="OFFLESSON Platform Interface"
                     speed={0.2}
                   />

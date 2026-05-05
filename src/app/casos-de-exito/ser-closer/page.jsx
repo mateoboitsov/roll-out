@@ -101,7 +101,7 @@ const SerCloserPage = () => {
       <div className="ser-closer-page" ref={container}>
         <section className="ser-closer-hero">
           <div className="ser-closer-hero-bg">
-            <img src="/images/cases/image copy 8.png" alt="SER CLOSER Hero Image" />
+            <img src="/images/cases/image-copy-8.png" alt="SER CLOSER Hero Image" />
           </div>
 
           <div className="container">
@@ -142,7 +142,7 @@ const SerCloserPage = () => {
 
         <section className="ser-closer-outro-banner">
           <div className="ser-closer-outro-img">
-            <ParallaxImage src="/images/cases/image copy 10.avif" alt="SER CLOSER Success" speed={0.2} />
+            <ParallaxImage src="/images/cases/image-copy-10.avif" alt="SER CLOSER Success" speed={0.2} />
           </div>
         </section>
 
@@ -206,7 +206,7 @@ const SerCloserPage = () => {
 
         <section className="ser-closer-outro-banner">
           <div className="ser-closer-outro-img">
-            <ParallaxImage src="/images/cases/image copy 10.avif" alt="SER CLOSER Success" speed={0.2} />
+            <ParallaxImage src="/images/cases/image-copy-10.avif" alt="SER CLOSER Success" speed={0.2} />
           </div>
         </section>
 
@@ -221,7 +221,7 @@ const SerCloserPage = () => {
               <div className="ser-closer-copy-img">
                 <div className="ser-closer-copy-img-wrapper">
                   <ParallaxImage
-                    src="/images/cases/image copy 8.png"
+                    src="/images/cases/image-copy-8.png"
                     alt="SER CLOSER Brand Identity"
                     speed={0.2}
                   />

@@ -25,7 +25,7 @@ const CasosDeExitoPage = () => {
       ],
       linkLabel: "Ver Caso",
       linkSrc: "/casos-de-exito/tradeando",
-              storyImg: "/images/cases/case 1.jpg",
+              storyImg: "/images/cases/case-1.jpg",
     },
     {
       profileColor: "#000000",
@@ -33,7 +33,7 @@ const CasosDeExitoPage = () => {
       title: ["De 40K a casi", "90K €/mes en", "4 meses"],
       linkLabel: "Ver Caso",
       linkSrc: "/casos-de-exito/sansoeurs",
-              storyImg: "/images/cases/case 2.jpg",
+              storyImg: "/images/cases/case-2.jpg",
     },
     {
       profileColor: "#000000",
@@ -41,7 +41,7 @@ const CasosDeExitoPage = () => {
       title: ["60.000 leads y", "más de 400.000€", "en facturación"],
       linkLabel: "Ver Caso",
       linkSrc: "/casos-de-exito/nuria-coll",
-              storyImg: "/images/cases/case 3.jpg",
+              storyImg: "/images/cases/case-3.jpg",
     },
     {
       profileColor: "#000000",
@@ -49,7 +49,7 @@ const CasosDeExitoPage = () => {
       title: ["Más de 42.000", "compras generadas", "en 12 meses"],      
       linkLabel: "Ver Caso",
       linkSrc: "/casos-de-exito/tutete",
-              storyImg: "/images/cases/case 4.jpg",
+              storyImg: "/images/cases/case-4.jpg",
     },
     {
       profileColor: "#000000",
@@ -57,7 +57,7 @@ const CasosDeExitoPage = () => {
       title: ["Lanzamos Offlesson", "y el primer día", "éxito total: 600 compras"],
       linkLabel: "Ver Caso",
       linkSrc: "/casos-de-exito/offlesson",
-      storyImg: "/images/cases/Macbook 2.jpg",
+      storyImg: "/images/cases/macbook-2.jpg",
     },
     {
       profileColor: "#000000",
@@ -65,7 +65,7 @@ const CasosDeExitoPage = () => {
       title: ["+660.000 € en", "ingresos en 9 meses", "y crecimiento", "sostenido del ROAS"],
       linkLabel: "Ver Caso",
       linkSrc: "/casos-de-exito/ser-closer",
-      storyImg: "/images/cases/image copy 8.png",
+      storyImg: "/images/cases/image-copy-8.png",
     },
     {
       profileColor: "#000000",
@@ -73,7 +73,7 @@ const CasosDeExitoPage = () => {
       title: ["+4.3x ROAS en", "campañas evergreen", "y +1.100 leads", "en solo 3 meses"],
       linkLabel: "Ver Caso",
       linkSrc: "/casos-de-exito/pablo-gil",
-      storyImg: "/images/cases/image copy 9.png",
+      storyImg: "/images/cases/image-copy-9.png",
     },
   ];
 

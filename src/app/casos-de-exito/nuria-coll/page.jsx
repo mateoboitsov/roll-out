@@ -101,7 +101,7 @@ const NuriaCollPage = () => {
       <div className="nuria-coll-page" ref={container}>
         <section className="nuria-coll-hero">
           <div className="nuria-coll-hero-bg">
-            <img src="/images/cases/case 3.jpg" alt="Nuria Coll Hero Image" />
+            <img src="/images/cases/case-3.jpg" alt="Nuria Coll Hero Image" />
           </div>
 
           <div className="container">
@@ -149,7 +149,7 @@ const NuriaCollPage = () => {
 
         <section className="nuria-coll-outro-banner">
           <div className="nuria-coll-outro-img">
-            <ParallaxImage src="/images/cases/image copy 6.png" alt="Nuria Coll Success" speed={0.2} />
+            <ParallaxImage src="/images/cases/image-copy-6.png" alt="Nuria Coll Success" speed={0.2} />
           </div>
         </section>
 
@@ -214,7 +214,7 @@ const NuriaCollPage = () => {
 
         <section className="nuria-coll-outro-banner">
           <div className="nuria-coll-outro-img">
-            <ParallaxImage src="/images/cases/image copy 7.png" alt="Nuria Coll Success" speed={0.2} />
+            <ParallaxImage src="/images/cases/image-copy-7.png" alt="Nuria Coll Success" speed={0.2} />
           </div>
         </section>
 
@@ -229,7 +229,7 @@ const NuriaCollPage = () => {
               <div className="nuria-coll-copy-img">
                 <div className="nuria-coll-copy-img-wrapper">
                   <ParallaxImage
-                    src="/images/cases/case 3.jpg"
+                    src="/images/cases/case-3.jpg"
                     alt="Nuria Coll Platform Interface"
                     speed={0.2}
                   />
